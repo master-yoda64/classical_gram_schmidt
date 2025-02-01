@@ -8,7 +8,7 @@ def get_orthogonal_vector(v: List[np.ndarray], q: List[np.ndarray], k: int) -> n
     return w / np.linalg.norm(w)
 
 def gram_schmidt(vec_list : List[np.ndarray]) -> List[np.ndarray]:
-    q = [1 for i in range(len(vec_list))]
+    q: List[np.ndarray] = [np.empty_like(vec_list[0]) for i in range(len(vec_list))]
     for k in range(len(vec_list)):
         q[k]= get_orthogonal_vector(vec_list, q, k)
     return q
