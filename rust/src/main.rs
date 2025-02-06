@@ -2,10 +2,10 @@ use ndarray::*;
 use ndarray_linalg::*;
 use std::time::Instant;
 
-fn get_orthogonal_vector(v: &Vec<ArrayView1<f64>>, q: &Vec<Array1<f64>>, k: &usize) -> Array1<f64> {
-    let mut w: Array1<f64> = v[*k].to_owned();
-    for i in 0..*k {
-        let dot: f64 =  v[*k].dot(&q[i]);
+fn get_orthogonal_vector(v: &Vec<ArrayView1<f64>>, q: &Vec<Array1<f64>>, k: usize) -> Array1<f64> {
+    let mut w: Array1<f64> = v[k].to_owned();
+    for i in 0..k {
+        let dot: f64 =  v[k].dot(&q[i]);
         w = w - dot * &q[i as usize];
     }
     w
@@ -14,7 +14,7 @@ fn get_orthogonal_vector(v: &Vec<ArrayView1<f64>>, q: &Vec<Array1<f64>>, k: &usi
 fn gram_schmidt(v: &Vec<ArrayView1<f64>>) -> Vec<Array1<f64>> {
     let mut q: Vec<Array1<f64>> = Vec::with_capacity(v.len());
     for k in 0..v.len(){
-        q.push(get_orthogonal_vector(&v, &q, &k));
+        q.push(get_orthogonal_vector(&v, &q, k));
         q[k] = &q[k] / q[k].norm();
     }
     q
