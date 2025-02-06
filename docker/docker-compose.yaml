@@ -1,0 +1,16 @@
+services:
+  rust_adn_python:
+    network_mode: "host"
+    build: .
+    volumes:
+      - ..:/root/classical_gram_schmidt  
+    working_dir: /root/classical_gram_schmidt 
+    image: rust_and_python:latest
+    privileged: true
+    tty: true
+    stdin_open: true
+    environment:
+      - DISPLAY=${DISPLAY}
+# secrets:
+#   ssh_key:
+#     file: your/ssh/key
